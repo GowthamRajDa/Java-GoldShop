@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 import products.Sales;
 
-public class Loader {
+public abstract class Loader {
 
-	public static void UserLoader(String filePath) throws FileNotFoundException {
+	public static void userLoader(String filePath) throws FileNotFoundException {
 		File file = new File(filePath);
 		Scanner scnObj = new Scanner(file);
 		while (scnObj.hasNextLine()) {
@@ -24,7 +24,7 @@ public class Loader {
 		scnObj.close();
 	}
 
-	public static void JewelLoader(String filePath) throws FileNotFoundException {
+	public static void jewelLoader(String filePath) throws FileNotFoundException {
 		File file = new File(filePath);
 		Scanner scnObj = new Scanner(file);
 		while (scnObj.hasNextLine()) {

@@ -2,9 +2,9 @@ package products;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import loginSignup.ScannerAndPrinters;
+import loginSignup.Actions;
 import loginSignup.Enums.Materials;
 
 public abstract class Sales {
@@ -18,25 +18,16 @@ public abstract class Sales {
 	public static void addJewelToStore(String material, String jewelCata, String jewelName, double price) {
 		Jewellery jewel = new Jewellery(material, jewelCata, jewelName, price);
 		jewels.add(jewel);
-		System.out.println(jewel.getJewelName() + " added to the Store\n");
+		System.out.println(jewel.getJewelName() + " added to the Store");
 	}
 
 	public static void addJewelToStore() {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Please enter the Jewel Material :");
-		String material = scan.nextLine();
-
-		System.out.println("Please enter the Jewel Catagory :");
-		String jewelCata = scan.nextLine();
-
-		System.out.println("Please enter the Jewel Name :");
-		String jewelName = scan.nextLine();
-
-		System.out.println("Please enter the Jewel Price :");
-		double price = scan.nextDouble();
-		scan.nextLine();
-		scan.close();
+		String material = ScannerAndPrinters.getProductMaterial();
+		String jewelCata = ScannerAndPrinters.getProductCata();
+		String jewelName = ScannerAndPrinters.getProductName();
+		double price = ScannerAndPrinters.getPrice();
 		addJewelToStore(material, jewelCata, jewelName, price);
+		Actions.adminActions();
 	}
 
 	public static void showAllProducts() {
@@ -51,9 +42,14 @@ public abstract class Sales {
 	public static void showCart() {
 		int i = 1;
 		lastshown = "CART";
-		for (Jewellery jewel : myCart) {
-			System.out.println(i + ".\n" + jewel);
-			i++;
+		if (myCart.isEmpty()) {
+			System.out.println("Your Cart is Empty");
+			Actions.customerActions();
+		} else {
+			for (Jewellery jewel : myCart) {
+				System.out.println(i + ".\n" + jewel);
+				i++;
+			}
 		}
 	}
 
@@ -84,8 +80,13 @@ public abstract class Sales {
 
 	public static Jewellery selectProduct() {
 		productInt = ScannerAndPrinters.getProductInt();
+
 		if (lastshown.equals("ALL")) {
-			return jewels.get(productInt + 1);
+			try {
+				return jewels.get(productInt - 1);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		} else if (lastshown.equals("CATA")) {
 			int count = 0;
 			for (int i = 0; i < jewels.size(); i++) {
@@ -102,7 +103,7 @@ public abstract class Sales {
 			int count = 0;
 			for (int i = 0; i < jewels.size(); i++) {
 				Jewellery jewel = jewels.get(i);
-				if (jewel.getMaterial() == Materials.valueOf(material)) {
+				if (jewel.getMaterial() == Materials.valueOf(material.toUpperCase())) {
 					count++;
 				}
 				if (count == productInt) {
@@ -111,21 +112,27 @@ public abstract class Sales {
 
 			}
 		} else if (lastshown.equals("CART")) {
-			return myCart.get(productInt + 1);
+			try {
+				return myCart.get(productInt - 1);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 		return null;
 	}
 
-	public static void removeProductFromStore(Jewellery jewel) {
+	public static String removeProductFromStore(Jewellery jewel) {
+		String jewelname=jewel.getJewelName();
 		jewels.remove(jewel);
+		return jewelname;
 	}
 
-	public static void removeProductFromCart(Jewellery jewel) {
-		myCart.remove(jewel);
+	public static void removeAllProductFromCart() {
+		myCart.clear();
 	}
 
 	public static void editProduct(Jewellery jewel) {
-		
+
 	}
 
 	public static void addToCart(Jewellery jewel) {
@@ -139,4 +146,19 @@ public abstract class Sales {
 		ScannerAndPrinters.ExitGreet();
 	}
 
+	public static void buyAllProductCart() {
+		double totalAmount=0;
+		if (myCart.isEmpty()) {
+			System.out.println("Your Cart is Empty");
+			Actions.customerActions();
+		} else {
+			for (Jewellery jewel : myCart) {
+				totalAmount+=jewel.getPrice();
+				System.out.println("The " + jewel.getJewelName() + " has been sold for " + jewel.getPrice());
+			}
+			System.out.println("\nTOTAL COST: "+totalAmount);
+			myCart.clear();
+			Actions.customerActions();
+		}
+	}
 }

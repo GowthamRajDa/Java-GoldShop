@@ -1,0 +1,9 @@
+Gold,Jimikky,Round ball Jimikky,15000.00
+Gold,Chain,Twisted design Chain,98000
+Gold,Nickless,Flower design Nickles,99999.00
+Platinum,Ring,Butterfly design Ring,59000.00
+Platinum,Nickless,Flatnick Platinum coated,149999.00
+Diamond,Ring,Couple ring,180000.00
+Silver,Ring,Normal Plain Silver ring,18000
+Silver,Chain,Rice design Chain,14000.00
+Bronze,Jimikky,Oval design Jimikky,8000.00
