@@ -1,7 +1,0 @@
-Gold,Jimikky,gold jimikky aram,15000.00
-Gold,Nickles,Flower Nickles,99999.00
-Silver,Chain,Silver chain new model,14000.00
-Platinum,Ring,Butterfly ring,59000.00
-Platinum,Nickles,Plat nick 01,149999.00
-Gold,Chain,gldchain 89,98000
-Silver,Ring,silverring Kir,18000
